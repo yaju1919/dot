@@ -16,7 +16,7 @@
         value: (function(){
             return "avascript:(function(){var c=" +
                 String(yaju1919.copy).replace(/\/\/.*\n/g,'') +
-                ";c(LZString.compressToEncodedURIComponent(getCurrentMapText(dq.mapNum)));console.warn('コピー完了')})();";
+                ";c(LZString.compressToEncodedURIComponent(getCurrentMapText(dq.mapNum)));alert('コピー完了')})();";
         })(),
         readonly: true
     });
@@ -44,7 +44,7 @@
         };
         var str = 'avascript:$.post("' + url + ',{' + Object.keys(param).map(function(v){
             return '"' + v + '":"' + param[v] + '"\n';
-        }) + '});'
+        }) + '});alert("マップの編集が完了しました。");'
         yaju1919.addInputText(h_result.empty(),{
             title: "output",
             value: str,
