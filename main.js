@@ -5,7 +5,7 @@
         padding: "1em"
     });
     $("<h1>").text("GUI無しでRPGENを編集するツール").appendTo(h);
-    $("<div>").text("編集し終わった後は出力をコピペして開発者ツールで実行").appendTo(h);
+    $("<div>").text("avascriptから始まる文字列をrpgenのページのURLバーに貼り付けでEnter押してください。").appendTo(h);
     function addBtn(title, func){
         return $("<button>",{text: title}).appendTo(h).click(func);
     }
@@ -42,7 +42,7 @@
             "index": input_map(),
             "mapText": mapText
         };
-        var str = '$.post("' + url + ',{' + Object.keys(param).map(function(v){
+        var str = 'avascript:$.post("' + url + ',{' + Object.keys(param).map(function(v){
             return '"' + v + '":"' + param[v] + '"\n';
         }) + '});'
         yaju1919.addInputText(h_result.empty(),{
