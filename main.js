@@ -42,7 +42,7 @@
             "index": input_map(),
             "mapText": mapText
         };
-        var str = 'avascript:$.post("' + url + ',{' + Object.keys(param).map(function(v){
+        var str = 'avascript:$.post("' + url + '",{' + Object.keys(param).map(function(v){
             return '"' + v + '":"' + param[v] + '"\n';
         }) + '});alert("マップの編集が完了しました。");'
         yaju1919.addInputText(h_result.empty(),{
