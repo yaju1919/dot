@@ -22,7 +22,7 @@
     yaju1919.addInputText(h_ui,{
         title: "読み込む",
         change: function(v){
-            $("#dq").val(LZString.decompressFromEncodedURIComponent(v));
+            $("#dq").val(LZString.decompressFromEncodedURIComponent(v.replace(/^L1/,'')));
         }
     });
     var input_dq = yaju1919.addInputText(h_ui,{
@@ -54,7 +54,7 @@
             data: {
                 token: g_token,
                 index: parseInt(dq.mapNum),
-                mapText: data,
+                mapText: (dq.bOpenScr ? '' : 'L1') + data,
             },
         }).done(function(r){
             if ( r != 0 ){
