@@ -11,6 +11,13 @@
     }
     var h_ui = $("<div>").appendTo(h);
     var h_result = $("<div>").appendTo(h);
+    yaju1919.addInputText(h_result.empty(),{
+        title: "rpgenのデータをコピーする関数",
+        value: (function(){
+            "(function{var c=" + String(yaju1919.copy) + ";c(LZString.compressToEncodedURIComponent(getCurrentMapText(dq.mapNum)));})();"
+        })(),
+        readonly: true
+    });
     var input_map = yaju1919.addInputNumber(h_ui,{
         title: "MAP番号"
     });
