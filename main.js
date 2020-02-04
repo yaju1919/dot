@@ -23,6 +23,7 @@
         title: "読み込む",
         change: function(v){
             $("#dq").val(LZString.decompressFromEncodedURIComponent(v.replace(/^L1/,'')));
+            $(window).resize();
         }
     });
     var input_dq = yaju1919.addInputText(h_ui,{
