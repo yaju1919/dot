@@ -31,8 +31,8 @@
         textarea: true
     });
     addBtn("出力",function(){
-        var str = "avascript:(function(){var data=" + LZString.compressToEncodedURIComponent(input_dq()) + 
-            + '(' + toStr(write) + ')();})();';
+        var str = "avascript:(function(){var data=" + LZString.compressToEncodedURIComponent(input_dq()) +
+            ';(' + toStr(write) + ')();})();';
         yaju1919.addInputText(h_result.empty(),{
             title: "output",
             value: str,
