@@ -5,7 +5,7 @@
         padding: "1em"
     });
     $("<h1>").text("GUI無しでRPGENを編集するツール").appendTo(h);
-    $("<div>").text("avascriptから始まる文字列をrpgenのページのURLバーに貼り付けでEnter押してください。").appendTo(h);
+    $("<div>").text("RPGENの作品ページのURLバーにjを入力した後、貼り付けでEnter押してください。").appendTo(h);
     function addBtn(title, func, parentNode){
         return $("<button>",{text: title}).appendTo(parentNode||h).click(func);
     }
@@ -15,7 +15,7 @@
         title: "rpgenのデータをコピーする関数",
         value: (function(){
             return "avascript:(function(){var c=" + toStr(yaju1919.copy) + ';' + toStr(getMapText) +
-                ";c(getMapText());alert('コピー完了')})();";
+                ";c(getMapText());apprise('コピー完了')})();";
         })(),
         readonly: true
     });
