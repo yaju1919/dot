@@ -21,6 +21,7 @@
         readonly: true
     });
     yaju1919.addInputText(h_ui,{
+        id: "load",
         title: "load",
         change: function(v){
             $("#dq").val(LZString.decompressFromEncodedURIComponent(v.replace(/^L1/,'')));
@@ -28,17 +29,29 @@
         }
     });
     yaju1919.addHideArea(h_ui,{
-        title: "sample",
-        id2: "sample"
+        title: "template",
+        id2: "template"
     });
-    addBtn("random", makeRandomMap, "#sample");
+    function addTemplate(title, func){
+        addBtn(title, function(){
+            var result = func($("#dq").val());
+            if(result) $("#dq").val(result);
+            $(window).resize();
+        }, "#template");
+    }
+    addTemplate("ミナギル地方", function(){
+        var d = "MQCQogSg8gUAzAGgOzDAOQCIxsAQgcQFkYALAFzIAcAuAeloHcmA6ATwHsBXMzgIwFNmAY3YBbRgEMyQkgH4AbgF4AKgDYAyqLCiAVssIB9ANapM2PPgCShfKQo16AS2aPRAc04AnYWNoBHRzQARk4AOwATZh1KN1MsHAAxABkoKAh4AwAWAAI4LNz8vJyiguLC8rLK0uqS2oqa+rqqpobmxva2ztbult6O1oyqgE4DAAZskfHJibGZqdnpxYXl+dW5nv6+rq2N7c39vcPdweqltbP1i6uVy5ud+4Pdp4ejl+eOk5Lr85vv9aDVAYgtkAUCQYDgRc3tDHjDXrCEfDMp98tNQcD0eCwZicRCsRi8bjsYS8VDEe8kRSqXDqR8WmiScSmQTmfi2USWZzbuMabzyXzKQKBiUAEwigwi-6Mrkc9nSuWszFkwX81Uq9W0zonC6y3XyvWK+XKzUmoVmtUUmBBPIADm5Cpl+qdhpdkLuFvNGs9prpqJuBsdrodwaV7q9Hoj4ajwr9awDIedgaT9u9qcjPqj2v9iYTQfjobWaejRYzmpROT+ld+1Z+PPTJYb9cR5dLNONjeLTc7SJbHdbXf73cHlr7o4HY6Hnt745nk9nw6L07ny4X84nZfXm7X25XWyXq93O4Px7h+63h4vJ53Z6P56vl8Xd6ft5f3ZvD9f96-j8-z4--8Hd9v1-ECAJeIC-2AsDQJjaC4KghCp0g5CYJQyoINQzD4InDDsKwxDX1wgi8JIqCiLQ4jKJwiiaPw89yLoxjSIFBjmKYqjI1Yji2J4jMuNo3iBOOISRPYn9BLEyS31EiTZMAmTuMU+iFJUqSNzU1S5NPTSlI0zidIMvStUMrSjOEsyTN0ntLJsoz+Ishy4LicxCAAQQABWwLzvJ87I-P8vygiQAwAFYYACgKgtC8KIsC4KwtiuLosSkF4ucnBCHcqBLDQZQrQQVQECCEK4EyIrRgQUZ0uATLstymAKptIqSqakVkHSoA";
+        $("#load").val(d).trigger("change");
+        return false;
+    });
+    addTemplate("random", makeMapRandom);
     var input_dq = yaju1919.addInputText(h_ui,{
         id: "dq",
         title: "edit",
         textarea: true
     });
     addBtn("output",function(){
-        var str = 'avascript:(function(){var data="' + LZString.compressToEncodedURIComponent(input_dq()) +
+        var str = 'avascript:(function(){var map="' + LZString.compressToEncodedURIComponent(input_dq()) +
             '";(' + toStr(write) + ')();})();';
         yaju1919.addInputText(h_result.empty(),{
             title: "output",
@@ -61,7 +74,7 @@
             data: {
                 token: g_token,
                 index: parseInt(dq.mapNum),
-                mapText: (dq.bOpenScr ? '' : 'L1') + data,
+                mapText: (dq.bOpenScr ? '' : 'L1') + map,
             },
         }).done(function(r){
             if ( r != 0 ){
@@ -75,13 +88,14 @@
             g_oldWriteText = '';
         });
     }
-    function makeRandomMap(){ // ランダムMAPサンプル
+    //------------------------------------------------------------------------------------
+    function makeMapRandom(){ // ランダムMAPサンプル
         var width = 50,
             result = [
-            "#HERO\n3,7",
-            "#BGM\nhttps://www.youtube.com/watch?v=f6FUc-KoTIM",
-            "#BGIMG\nhttp://i.imgur.com/qiN1und.jpg",
-        ];
+                "#HERO\n3,7",
+                "#BGM\nhttps://www.youtube.com/watch?v=f6FUc-KoTIM",
+                "#BGIMG\nhttp://i.imgur.com/qiN1und.jpg",
+            ];
         function makeRandMap(){
             return "#FLOOR\n" + yaju1919.makeArray(width).map(function(){
                 return yaju1919.makeArray(width).map(function(){
@@ -105,6 +119,6 @@
         yaju1919.makeArray(49).forEach(function(v){
             result.push(makeRandHuman());
         });
-        $("#dq").val(result.join('#END\n\n'));
+        return result.join('#END\n\n');
     }
 })();
