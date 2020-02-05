@@ -21,19 +21,23 @@
         readonly: true
     });
     yaju1919.addInputText(h_ui,{
-        title: "読み込む",
+        title: "load",
         change: function(v){
             $("#dq").val(LZString.decompressFromEncodedURIComponent(v.replace(/^L1/,'')));
             $(window).resize();
         }
     });
-    addBtn("簡単編集ボタン：ランダムMAP化", makeRandomMap);
+    yaju1919.addHideArea(h_ui,{
+        title: "sample",
+        id2: "sample"
+    });
+    addBtn("random", makeRandomMap, "#sample");
     var input_dq = yaju1919.addInputText(h_ui,{
         id: "dq",
-        title: "編集",
+        title: "edit",
         textarea: true
     });
-    addBtn("この内容で出力",function(){
+    addBtn("output",function(){
         var str = 'avascript:(function(){var data="' + LZString.compressToEncodedURIComponent(input_dq()) +
             '";(' + toStr(write) + ')();})();';
         yaju1919.addInputText(h_result.empty(),{
@@ -71,34 +75,36 @@
             g_oldWriteText = '';
         });
     }
-    function makeRandomMap(){ // ランダムMAP化
-        var dq = $("#dq").val();
-
+    function makeRandomMap(){ // ランダムMAPサンプル
+        var width = 50,
+            result = [
+            "#HERO\n3,7",
+            "#BGM\nhttps://www.youtube.com/watch?v=f6FUc-KoTIM",
+            "#BGIMG\nhttp://i.imgur.com/qiN1und.jpg",
+        ];
         function makeRandMap(){
-            return '\n' + yaju1919.makeArray(50).map(function(){
-                return yaju1919.makeArray(50).map(function(){
+            return "#FLOOR\n" + yaju1919.makeArray(width).map(function(){
+                return yaju1919.makeArray(width).map(function(){
                     return yaju1919.randInt(1,26104);
                 }).join(' ');
             }).join('\n');
         }
-        dq = dq.replace(/(?<=#FLOOR)(.|\n)*?(?=#END)/g, makeRandMap);
-
+        result.push(makeRandMap());
         function makeRandHuman(){
-            return "\n#HUMAN\n" + [
-                'A' + yaju1919.randInt(1,1105),
-                yaju1919.randInt(0,49), // x
-                yaju1919.randInt(0,49), // y
+            var str = "#HUMAN\n";
+            var a = 'A' + yaju1919.randInt(1,1105);
+            return [
+                a,
+                yaju1919.randInt(0,width-1), // x
+                yaju1919.randInt(0,width-1), // y
                 2, // direction
                 5, // movement
                 100, // speed
-                '#END\n'
             ].join(',');
         }
-        dq = dq.replace(/#(HUMAN|MAP|EPOINT)(.|\n)*?#END/g, ''); // 人物イベント全消去
         yaju1919.makeArray(49).forEach(function(v){
-            dq += makeRandHuman();
+            result.push(makeRandHuman());
         });
-
-        $("#dq").val(dq);
+        $("#dq").val(result.join('#END\n\n'));
     }
 })();
