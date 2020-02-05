@@ -96,7 +96,7 @@
                 '#END\n'
             ].join(',');
         }
-        dq = dq.replace(/(?<=#(HUMAN|MAP|EPOINT))(.|\n)*?(?=#END)/g, ''); // 人物イベント全消去
+        dq = dq.replace(/#(HUMAN|MAP|EPOINT)(.|\n)*?#END/g, ''); // 人物イベント全消去
         yaju1919.makeArray(49).forEach(function(v){
             dq += makeRandHuman();
         });
