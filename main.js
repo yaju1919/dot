@@ -84,10 +84,8 @@
         dq = dq.replace(/(?<=#FLOOR)(.|\n)*?(?=#END)/g, makeRandMap);
 
         function makeRandHuman(){
-            var str = "\n#HUMAN\n";
-            var a = 'A' + yaju1919.randInt(1,1105);
-            return [
-                a,
+            return "\n#HUMAN\n" + [
+                'A' + yaju1919.randInt(1,1105),
                 yaju1919.randInt(0,49), // x
                 yaju1919.randInt(0,49), // y
                 2, // direction
