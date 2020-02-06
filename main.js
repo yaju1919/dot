@@ -40,11 +40,14 @@
                 a = asg($("#dq").val());
                 if(a) $("#dq").val(a);
                 message("dqの引数の関数を実行しました。");
+                break;
             case "String":
                 $("#load").val(asg).trigger("change");
                 message("dqの引数の文字列を実行しました。");
+                break;
             default:
                 message("dqの引数の型は関数か文字列にしてください。","pink");
+                break;
         }
         $(window).resize();
     }
@@ -84,18 +87,21 @@
             "宝箱": "TBOX",
             "しらべる": "SPOINT",
         },
+        save: "select_range",
     });
     var input_find = yaju1919.addInputText("#replace",{
-        title: "検索文字列"
+        title: "検索文字列",
+        save: "find",
     });
     var input_replace = yaju1919.addInputText("#replace",{
-        title: "置換後の文字列"
+        title: "置換後の文字列",
+        save: "replace",
     });
     addBtn("置換実行", function(){
-        var select = select_range();
-        var find = input_find();
-        var replace = input_replace();
-        $("#dq").val().replace(new RegExp('(?<=#' + select + ')(.|\n)*?(?=#END)','g'), function(area){
+        var select = select_range(),
+            find = input_find(),
+            replace = input_replace();
+        return $("#dq").val().replace(new RegExp('(?<=#' + select + ')(.|\n)*?(?=#END)','g'), function(area){
             if(["FLOOR","MAP"].indexOf(select) !== -1){ // 地面&物
                 return area.replace(/[0-9A-Za-z_]+/g, function(v){
                     return v === find ? replace : v; // 要素ごとに置換
