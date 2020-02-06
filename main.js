@@ -98,20 +98,22 @@
         save: "replace",
     });
     addBtn("置換実行", function(){
-        var select = select_range(),
-            find = input_find(),
-            replace = input_replace();
-        return $("#dq").val().replace(new RegExp('(?<=#' + select + ')(.|\n)*?(?=#END)','g'), function(area){
-            if(["FLOOR","MAP"].indexOf(select) !== -1){ // 地面&物
-                return area.replace(/[0-9A-Za-z_]+/g, function(v){
-                    return v === find ? replace : v; // 要素ごとに置換
-                });
-            }
-            else{
-                return area.split('\n').map(function(line){
-                    return line.replace(find, replace); // 行ごとに置換
-                }).join('\n');
-            }
+        dq(function(){
+            var select = select_range(),
+                find = input_find(),
+                replace = input_replace();
+            return $("#dq").val().replace(new RegExp('(?<=#' + select + ')(.|\n)*?(?=#END)','g'), function(area){
+                if(["FLOOR","MAP"].indexOf(select) !== -1){ // 地面&物
+                    return area.replace(/[0-9A-Za-z_]+/g, function(v){
+                        return v === find ? replace : v; // 要素ごとに置換
+                    });
+                }
+                else{
+                    return area.split('\n').map(function(line){
+                        return line.replace(find, replace); // 行ごとに置換
+                    }).join('\n');
+                }
+            });
         });
     },"#replace");
     //------------------------------------------------------------------------------------
