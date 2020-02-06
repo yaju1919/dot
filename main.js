@@ -4,6 +4,12 @@
         "text-align": "center",
         padding: "1em"
     });
+    yaju1919.addInputText(h,{
+        title: "このページのタイトルを変更",
+        change: function(v){
+            if(v) $("title").text(v);
+        }
+    });
     $("<h1>").text("GUI無しでRPGENを編集するツール").appendTo(h);
     $("<div>").text("対象MAPのURLバーにjを入力した後、貼り付けてEnter押してください。").appendTo(h);
     var message_elm = $("<div>").appendTo(h);
@@ -18,7 +24,7 @@
     var h_ui = $("<div>").appendTo(h);
     var h_result = $("<div>").appendTo(h);
     yaju1919.addInputText(h_ui,{
-        title: "rpgenのデータをコピーする関数",
+        title: "MAPをコピーするブックマークレット",
         value: (function(){
             return "avascript:(function(){var c=" + toStr(yaju1919.copy) + ';' + toStr(getMapText) +
                 ";c(getMapText());apprise('コピー完了')})();";
@@ -171,20 +177,22 @@
         }
         result.push(makeRandMap());
         function makeRandHuman(){
-            var str = "#HUMAN\n";
-            var a = 'A' + yaju1919.randInt(1,1105);
-            return [
-                a,
+            return "#HUMAN\n" + [
+                'A' + yaju1919.randInt(1,1105),
                 yaju1919.randInt(0,width-1), // x
                 yaju1919.randInt(0,width-1), // y
                 2, // direction
                 5, // movement
                 100, // speed
-            ].join(',');
+            ].map(function(v){
+                return v + ',';
+            }).join('');
         }
         yaju1919.makeArray(49).forEach(function(v){
             result.push(makeRandHuman());
         });
-        return result.join('#END\n\n');
+        return result.map(function(v){
+            return v + '#END\n';
+        }).join('\n');
     }
 })();
