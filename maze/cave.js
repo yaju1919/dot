@@ -48,7 +48,7 @@ function f(str){
                     if(!a) return;
                     var b = a[x-1];
                     if(!b) return;
-                    if(b === '0') mass[y][x] = 'C12819';
+                    if(b === '0') mass[y][x] = 'C12818';
                 })();
                 (function(){ // 左下
                     var a = copy[y+1];
@@ -62,7 +62,7 @@ function f(str){
                     if(!a) return;
                     var b = a[x+1];
                     if(!b) return;
-                    if(b === '0') mass[y][x] = 'C17344';
+                    if(b === '0') mass[y][x] = 'C12816';
                 })();
                 (function(){ // 右下
                     var a = copy[y+1];
