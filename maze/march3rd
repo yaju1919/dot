@@ -1,66 +1,97 @@
 function f(str){ // 3 2 2 3
-    var mass = str.split('\n').map(v=>v.split(''));
-    var copy = mass.map(v=>v.slice());
-    var mono = mass.map(v=>v.slice().map(v2=>''));
-    mass = mass.map(v=>v.map(v2=>v2==='0'?'15897':v2));
+    var yuka = str.split('\n').map(v=>v.split(''));
+    var copy = yuka.map(v=>v.slice());
+    var mono = yuka.map(v=>v.slice().map(v2=>''));
+    yuka = yuka.map(v=>v.map(v2=>v2==='0'?'15897':'C45'));
     copy.forEach(function(line,y){
         line.forEach(function(c,x){
             if(c==='1') return;
 
             (function(){ // ←
-                var a = line[x-1];
-                if(a === '0') return;
+                if(copy[y][x-1] === '0') return;
+                if(copy[y-1][x-1] === '0' || copy[y+1][x-1] === '0') return;
                 mono[y][x-1] = 'C15926';
                 return;
             })();
 
             (function(){ // →
-                var a = line[x+1];
-                if(a === '0') return;
-                mass[y][x+1] = 'C15915';
+                if(copy[y][x+1] === '0') return;
+                if(copy[y-1][x+1] === '0' || copy[y+1][x+1] === '0') return;
+                if(yuka[y][x+1] === 'C45') yuka[y][x+1] = 'C15915';
                 mono[y][x+1] = 'C15926';
                 return;
             })();
 
             (function(){ // ↑
-                var a = copy[y-1];
-                var b = a[x];
-                if(b === '0') return; // ↑が歩けるなら抜ける
-                mass[y-1][x] = 'C15925';
-                mass[y-2][x] = 'C15924';
-                if(copy[y-1][x-1] === '1'){
-                    mass[y-1][x-1] = 'C15931';
-                    mono[y-1][x-1] = 'C15926';
-                    mass[y-2][x-1] = 'C15927';
+                if(copy[y-1][x] === '0') return; // ↑が歩けるなら抜ける
+                //---------------------------------------------------------
+                if(copy[y-1][x-1] === '1' && copy[y-1][x+1] === '1'){ // 左右壁
+                    yuka[y-1][x] = 'C15925';
+                    yuka[y-2][x] = 'C15924';
                 }
-                if(copy[y-1][x+1] === '1'){
-                    mass[y-1][x+1] = 'C15932';
-                    mono[y-1][x+1] = 'C15926';
-                    mass[y-2][x+1] = 'C15928';
+                //---------------------------------------------------------
+                if(copy[y-1][x-1] === '1'){ // 左のみ壁
+                    if(copy[y][x-1] === '1'){
+                        yuka[y-1][x-1] = 'C15931';
+                        mono[y-1][x-1] = 'C15926';
+                        mono[y-2][x-1] = 'C15927';
+                    }
+                    else if(copy[y-1][x-2] === '0'){
+                        yuka[y-1][x-1] = 'C15931';
+                        mono[y-2][x-1] = 'C15929';
+                    }
                 }
-                mass[y][x] = '25385';
-                if(mass[y+1][x] === 'C45') mass[y+1][x] = 'C24347';
+                //---------------------------------------------------------
+                if(copy[y-1][x+1] === '1'){ // 右のみ壁
+                    if(copy[y][x+1] === '1'){
+                        yuka[y-1][x+1] = 'C15932';
+                        mono[y-1][x+1] = 'C15926';
+                        mono[y-2][x+1] = 'C15928';
+                    }
+                    else if(copy[y-1][x+2] === '0'){
+                        yuka[y-1][x+1] = 'C15932';
+                        mono[y-2][x+1] = 'C15930';
+                    }
+                }
+                //---------------------------------------------------------
             })();
 
             (function(){ // ↓
-                var a = copy[y+1];
-                var b = a[x];
-                if(b === '0') return; // ↓が歩けるなら抜ける
-                mass[y+1][x] = 'C15924';
-                mass[y+2][x] = 'C15925';
-                if(copy[y+1][x-1] === '1'){
-                    mass[y+1][x-1] = 'C15929';
-                    mass[y+2][x-1] = 'C15931';
+                if(copy[y+1][x] === '0') return; // ↓が歩けるなら抜ける
+                //---------------------------------------------------------
+                if(copy[y+1][x-1] === '1' && copy[y+1][x+1] === '1'){ // 左右壁
+                    yuka[y+1][x] = 'C15924';
+                    yuka[y+2][x] = 'C15925';
                 }
-                if(copy[y+1][x+1] === '1'){
-                    mass[y+1][x+1] = 'C15930';
-                    mass[y+2][x+1] = 'C15932';
+                //---------------------------------------------------------
+                if(copy[y+1][x-1] === '1'){ // 左のみ壁
+                    if(copy[y][x-1] === '1'){
+                        yuka[y+1][x-1] = 'C15929';
+                        yuka[y+2][x-1] = 'C15931';
+                    }
+                    else if(copy[y+1][x-2] === '0'){
+                        mono[y+1][x-1] = 'C15927';
+                        if(copy[y+1][x-2] === '0') yuka[y+1][x-1] = 'C15915';
+                        yuka[y+2][x-1] = 'C15931';
+                    }
                 }
+                //---------------------------------------------------------
+                if(copy[y+1][x+1] === '1'){ // 右のみ壁
+                    if(copy[y][x+1] === '1'){
+                        yuka[y+1][x+1] = 'C15930';
+                        yuka[y+2][x+1] = 'C15932';
+                    }
+                    else if(copy[y+1][x+2] === '0'){
+                        yuka[y+1][x+1] = 'C15928';
+                        yuka[y+2][x+1] = 'C15932';
+                    }
+                }
+                //---------------------------------------------------------
             })();
         });
     });
     (function(){
-        var a = mass.map(line=>line.join(' ')).join('\n');
+        var a = yuka.map(line=>line.join(' ')).join('\n');
         var b = mono.map(line=>line.join(' ')).join('\n');
         dq(s=>s.replace(/(?<=#FLOOR)(.|\n)*?(?=#END)/,'\n'+a).replace(/(?<=#MAP)(.|\n)*?(?=#END)/,'\n'+b));
     })();
