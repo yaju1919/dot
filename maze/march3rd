@@ -1,4 +1,4 @@
-function f(str){ // 2 3 3 2
+function f(str){ // 3 2 2 3
     var mass = str.split('\n').map(v=>v.split(''));
     var copy = mass.map(v=>v.slice());
     var mono = mass.map(v=>v.slice().map(v2=>''));
