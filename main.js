@@ -137,7 +137,8 @@
     //------------------------------------------------------------------------------------
     var input_dq = yaju1919.addInputText(tabA,{
         id: "dq",
-        textarea: true
+        textarea: true,
+        hankaku: true,
     });
     addBtn("output",function(){
         var file = LZString.compressToEncodedURIComponent(input_dq());
