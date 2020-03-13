@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     var a = prompt("1+1=?");
-    if(a !== 'jack') return location.href = "https://www1.x-feeder.info/io_games/";
+    if(a !== 'tdkr114514') return location.href = "https://www1.x-feeder.info/io_games/";
     var h = $("<div>").appendTo($("body")).css({
         "text-align": "center",
         padding: "1em"
