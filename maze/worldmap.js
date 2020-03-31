@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-    var SIZE = 50;
+    var SIZE = 300;
     // 地面
     var UMI = "15_3", // 歩行不可
         RIKU = "0_8",
@@ -24,7 +24,12 @@
                 [x-1,y],
                 [x,y+1],
                 [x,y-1],
-            ].filter(v => v[0] < SIZE && v[1] < SIZE && v[0] > 0 && v[1] > 0 && moved.indexOf(v[0] + '_' + v[1]) === -1 && judge_func(v[0], v[1]) );
+            ].filter(v => {
+                var x = v[0],
+                    y = v[1];
+                if(x < 0 || x >= SIZE || y < 0 || y >= SIZE) return false;
+                 return moved.indexOf(v[0] + '_' + v[1]) === -1 && judge_func(x,y);
+            });
             if(!ar.length) return loop(startX,startY); // 候補がなくなった
             var xy = yaju1919.randArray(ar);
             return loop(xy[0], xy[1]);
@@ -32,11 +37,11 @@
     }
     var yukaArray = [];
     // 最初の地面
-    yaju1919.makeArray(8).forEach(v=>{
+    yaju1919.makeArray(80).forEach(v=>{
         fill(
             yaju1919.randInt(0,SIZE),
             yaju1919.randInt(0,SIZE),
-            100,
+            500,
             (x,y) => {
                 yuka[y][x] = RIKU;
                 if(y > 0) yuka[y-1][x] = RIKU;
@@ -90,7 +95,7 @@
     });
     // その他
     [MORI,SIGEMI,YAMA,YAMA2].forEach((vv)=>{
-        yaju1919.makeArray(8).forEach(v=>{
+        yaju1919.makeArray(50).forEach(v=>{
             var xy = yaju1919.randArray(yukaArray.filter(str=>{
                 var p = str.split('_').map(v=>Number(v));
                 return !mono[p[0]][p[1]];
@@ -98,7 +103,7 @@
             fill(
                 xy[0],
                 xy[1],
-                50,
+                100,
                 (x,y) => {
                     yuka[y][x] = vv;
                     [
