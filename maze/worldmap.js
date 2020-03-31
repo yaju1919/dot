@@ -16,8 +16,9 @@
         loop(startX, startY);
         function loop(x,y){
             if(!size) return;
-            fill_func(x,y);
             size--;
+            if(x < 0 || x >= SIZE || y < 0 || y >= SIZE) return;
+            fill_func(x,y);
             moved.push(x + '_' + y);
             var ar = [
                 [x+1,y],
@@ -105,7 +106,7 @@
             fill(
                 xy[0],
                 xy[1],
-                300,
+                100,
                 (x,y) => {
                     yuka[y][x] = vv;
                     [
