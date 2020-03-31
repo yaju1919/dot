@@ -37,7 +37,7 @@
     }
     var yukaArray = [];
     // 最初の地面
-    yaju1919.makeArray(80).forEach(v=>{
+    yaju1919.makeArray(220).forEach(v=>{
         fill(
             yaju1919.randInt(0,SIZE),
             yaju1919.randInt(0,SIZE),
@@ -87,7 +87,9 @@
                     case '1100': return 'C4298';
                     case '1101': return 'C6346';
                     case '1110': return 'C6344';
-                    case '1111': return '3_0';
+                    case '1111':
+                        yukaArray.push(x + '_' + y);
+                        return RIKU;
                     default: return UMI;
                 }
             })();
@@ -103,7 +105,7 @@
             fill(
                 xy[0],
                 xy[1],
-                100,
+                300,
                 (x,y) => {
                     yuka[y][x] = vv;
                     [
@@ -118,7 +120,7 @@
                     });
                 },
                 (x,y) => {
-                    return yukaArray.indexOf(x + '_' + y) !== -1 && !(yuka[y][x]);
+                    return yukaArray.indexOf(x + '_' + y) !== -1 && !yuka[y][x];
                 }
             )
         });
