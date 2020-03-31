@@ -2,12 +2,12 @@
     'use strict';
     var SIZE = 50;
     // 地面
-    var UMI = "C11449", // 歩行不可
-        RIKU = "7054";
-    // 物
-    var MORI = "3923",
-        YAMA = "3859",
-        YAMA2 = "C3858"; // 歩行不可
+    var UMI = "15_3", // 歩行不可
+        RIKU = "0_8",
+        SIGEMI = "3_8",
+        MORI = "9_8",
+        YAMA = "3_12",
+        YAMA2 = "6_8"; // 歩行不可
     var yuka = yaju1919.makeArray(SIZE).map(v=>yaju1919.makeArray(SIZE).map(v=>UMI));
     var mono = yuka.map(v=>v.slice().map(v2=>''));
     //
@@ -50,8 +50,45 @@
             }
         )
     });
-    // 森
-    [MORI,YAMA,YAMA2].forEach((vv)=>{
+    // 陸の周りの海
+    yuka.forEach((line,y)=>{
+        line.forEach((v,x)=>{
+            if(yuka[y][x] !== UMI) return;
+            yuka[y][x] = (function(){
+                var str = [
+                    [x,y-1],
+                    [x-1,y],
+                    [x+1,y],
+                    [x,y+1],
+                ].map(xy=>{
+                    var x = xy[0],
+                        y = xy[1];
+                    if(!(x >= 0 && x < SIZE && x >= 0 && x < SIZE)) return '0';
+                    return yuka[y][x] === RIKU ? '1' : '0';
+                }).join('');
+                switch(str){
+                    case '0001': return 'C4304';
+                    case '0010': return 'C4303';
+                    case '0011': return 'C4299';
+                    case '0100': return 'C4306';
+                    case '0101': return 'C4300';
+                    case '0110': return 'C2685';
+                    case '0111': return 'C6343';
+                        
+                    case '1001': return 'C4297';
+                    case '1010': return 'C4301';
+                    case '1011': return 'C6345';
+                    case '1100': return 'C4298';
+                    case '1101': return 'C6346';
+                    case '1110': return 'C6344';
+                    case '1111': return '3_0';
+                    default: return UMI;
+                }
+            })();
+        });
+    });
+    // その他
+    [MORI,SIGEMI,YAMA,YAMA2].forEach((vv)=>{
         yaju1919.makeArray(8).forEach(v=>{
             var xy = yaju1919.randArray(yukaArray.filter(str=>{
                 var p = str.split('_').map(v=>Number(v));
@@ -60,9 +97,9 @@
             fill(
                 xy[0],
                 xy[1],
-                100,
+                50,
                 (x,y) => {
-                    mono[y][x] = vv;
+                    yuka[y][x] = vv;
                     [
                         [x+1,y],
                         [x-1,y],
