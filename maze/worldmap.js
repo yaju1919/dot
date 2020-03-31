@@ -95,7 +95,7 @@
     });
     // その他
     [MORI,SIGEMI,YAMA,YAMA2].forEach((vv)=>{
-        yaju1919.makeArray(50).forEach(v=>{
+        yaju1919.makeArray(100).forEach(v=>{
             var xy = yaju1919.randArray(yukaArray.filter(str=>{
                 var p = str.split('_').map(v=>Number(v));
                 return yuka[p[1]][p[0]] === RIKU;
@@ -114,11 +114,11 @@
                     ].filter(v=>{
                         return yukaArray.indexOf(v[0] + '_' + v[1]) !== -1;
                     }).forEach(v=>{
-                        mono[y][x] = vv;
+                        yuka[y][x] = vv;
                     });
                 },
                 (x,y) => {
-                    return yukaArray.indexOf(x + '_' + y) !== -1 && !mono[y][x];
+                    return yukaArray.indexOf(x + '_' + y) !== -1 && !(yuka[y][x]);
                 }
             )
         });
