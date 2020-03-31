@@ -63,20 +63,21 @@
                 ].map(xy=>{
                     var x = xy[0],
                         y = xy[1];
-                    if(!(x >= 0 && x < SIZE && x >= 0 && x < SIZE)) return '0';
+                    if(!(x >= 0 && x < SIZE && y >= 0 && y < SIZE)) return '0';
                     return yuka[y][x] === RIKU ? '1' : '0';
                 }).join('');
                 switch(str){
                     case '0001': return 'C4304';
                     case '0010': return 'C4303';
-                    case '0011': return 'C4299';
+                    case '0011': return 'C4295';
                     case '0100': return 'C4306';
-                    case '0101': return 'C4300';
+                    case '0101': return 'C4296';
                     case '0110': return 'C2685';
                     case '0111': return 'C6343';
-                        
-                    case '1001': return 'C4297';
-                    case '1010': return 'C4301';
+
+                    case '1000': return 'C4305';
+                    case '1001': return 'C4336';
+                    case '1010': return 'C4297';
                     case '1011': return 'C6345';
                     case '1100': return 'C4298';
                     case '1101': return 'C6346';
