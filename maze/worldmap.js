@@ -28,7 +28,7 @@
                 var x = v[0],
                     y = v[1];
                 if(x < 0 || x >= SIZE || y < 0 || y >= SIZE) return false;
-                 return moved.indexOf(v[0] + '_' + v[1]) === -1 && judge_func(x,y);
+                return moved.indexOf(v[0] + '_' + v[1]) === -1 && judge_func(x,y);
             });
             if(!ar.length) return loop(startX,startY); // 候補がなくなった
             var xy = yaju1919.randArray(ar);
@@ -98,7 +98,7 @@
         yaju1919.makeArray(50).forEach(v=>{
             var xy = yaju1919.randArray(yukaArray.filter(str=>{
                 var p = str.split('_').map(v=>Number(v));
-                return !mono[p[0]][p[1]];
+                return yuka[p[1]][p[0]] === RIKU;
             })).split('_').map(v=>Number(v));
             fill(
                 xy[0],
