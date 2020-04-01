@@ -28,7 +28,7 @@
             ].filter(v => {
                 var x = v[0],
                     y = v[1];
-                if(x < 0 || x >= SIZE || y < 0 || y >= SIZE) return false;
+                if(x < 10 || x >= SIZE - 10 || y < 10 || y >= SIZE - 10) return false;
                 return moved.indexOf(v[0] + '_' + v[1]) === -1 && judge_func(x,y);
             });
             if(!ar.length) return loop(startX,startY); // 候補がなくなった
@@ -42,7 +42,7 @@
         fill(
             yaju1919.randInt(0,SIZE),
             yaju1919.randInt(0,SIZE),
-            500,
+            400,
             (x,y) => {
                 yuka[y][x] = RIKU;
                 if(y > 0) yuka[y-1][x] = RIKU;
@@ -106,7 +106,7 @@
             fill(
                 xy[0],
                 xy[1],
-                100,
+                200,
                 (x,y) => {
                     yuka[y][x] = vv;
                     [
@@ -118,10 +118,14 @@
                         return yukaArray.indexOf(v[0] + '_' + v[1]) !== -1;
                     }).forEach(v=>{
                         yuka[y][x] = vv;
+                        if(yuka[y+1][x] === RIKU) yuka[y+1][x] = vv;
+                        if(yuka[y-1][x] === RIKU) yuka[y-1][x] = vv;
+                        if(yuka[y][x+1] === RIKU) yuka[y][x+1] = vv;
+                        if(yuka[y][x-1] === RIKU) yuka[y][x-1] = vv;
                     });
                 },
                 (x,y) => {
-                    return yukaArray.indexOf(x + '_' + y) !== -1 && !yuka[y][x];
+                    return yukaArray.indexOf(x + '_' + y) !== -1 && (yuka[y][x] === RIKU || yuka[y][x] === vv);
                 }
             )
         });
