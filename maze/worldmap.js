@@ -17,7 +17,7 @@
         function loop(x,y){
             if(!size) return;
             size--;
-            if(x < 0 || x >= SIZE || y < 0 || y >= SIZE) return;
+            if(x < 10 || x >= SIZE - 10 || y < 10 || y >= SIZE - 10) return false;
             fill_func(x,y);
             moved.push(x + '_' + y);
             var ar = [
@@ -38,7 +38,7 @@
     }
     var yukaArray = [];
     // 最初の地面
-    yaju1919.makeArray(220).forEach(v=>{
+    yaju1919.makeArray(250).forEach(v=>{
         fill(
             yaju1919.randInt(0,SIZE),
             yaju1919.randInt(0,SIZE),
