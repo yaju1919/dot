@@ -6,8 +6,10 @@
         RIKU = "0_8",
         SIGEMI = "3_8",
         MORI = "9_8",
+        SABAKU = "9_0",
         YAMA = "3_12",
-        YAMA2 = "6_8"; // 歩行不可
+        YAMA2 = "6_8", // 歩行不可
+        NUMA = "6_0";
     var yuka = yaju1919.makeArray(SIZE).map(v=>yaju1919.makeArray(SIZE).map(v=>UMI));
     var mono = yuka.map(v=>v.slice().map(v2=>''));
     //
@@ -97,8 +99,8 @@
         });
     });
     // その他
-    [MORI,SIGEMI,YAMA,YAMA2].forEach((vv)=>{
-        yaju1919.makeArray(100).forEach(v=>{
+    [MORI,SABAKU,YAMA,YAMA2,SIGEMI,NUMA].forEach((vv)=>{
+        yaju1919.makeArray(70).forEach(v=>{
             var xy = yaju1919.randArray(yukaArray.filter(str=>{
                 var p = str.split('_').map(v=>Number(v));
                 return yuka[p[1]][p[0]] === RIKU;
@@ -106,7 +108,7 @@
             fill(
                 xy[0],
                 xy[1],
-                200,
+                180,
                 (x,y) => {
                     yuka[y][x] = vv;
                     [
