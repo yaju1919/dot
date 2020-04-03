@@ -1,7 +1,5 @@
 (function() {
     'use strict';
-    var a = prompt("1+1=?");
-    if(a !== 'tdkr114514') return location.href = "https://www1.x-feeder.info/io_games/";
     var h = $("<div>").appendTo($("body")).css({
         "text-align": "center",
         padding: "1em"
@@ -140,7 +138,7 @@
     var input_dq = yaju1919.addInputText(tabA,{
         id: "dq",
         textarea: true,
-        hankaku: true,
+        hankaku: false,
     });
     addBtn("output",function(){
         var file = LZString.compressToEncodedURIComponent(input_dq());
