@@ -10,12 +10,12 @@ var ar = `21684 21680 21675 21672 21667 21662 21657 21652 21647 21642 21637  215
 21713 21708 21703  21698 21693 21688      21626 21623 21635 21617 21612 21607 21602   21735 21736 21737 21738 21745 21746 21747 21748 21749 21750
 21718  21714 21709 21704  21699 21694 21689    21630   21624 21636 21618 21613 21608 21603   21721 21722 21720 21740 23632 21739`.match(/[0-9]+/g);
 var obj = {};
-ar.forEach(id=>{
-    $.get("http://rpgen.us/dq/sprites/cons/getSuggest.php?term="+id, r =>{
+ar.forEach((id,i)=>{
+    setTimeout(()=>$.get("http://rpgen.us/dq/sprites/cons/getSuggest.php?term="+id, r =>{
         var word = r.replace(/\\u([0-9a-f]{4})/ig,function(v){
             return String.fromCharCode("0x"+v.slice(2));
         }).slice(2).slice(0,-2).replace(/[0-9]+\. /,'');
         if(!word) console.error("致命的なエラー："+id);
         obj[word] = id;
-    });
+    }),i*1000);
 });
