@@ -19,3 +19,15 @@ ar.forEach((id,i)=>{
         obj[word] = id;
     }),i*1000);
 });
+
+// 取りこぼし回収
+var done = Object.keys(obj).map(v=>obj[v]);
+ar.filter(v=>done.indexOf(v)===-1).forEach((id,i)=>{
+    setTimeout(()=>$.get("http://rpgen.us/dq/sprites/cons/getSuggest.php?term="+id, r =>{
+        var word = r.replace(/\\u([0-9a-f]{4})/ig,function(v){
+            return String.fromCharCode("0x"+v.slice(2));
+        }).slice(2).slice(0,-2).replace(/[0-9]+\. /,'');
+        if(!word) console.error("致命的なエラー："+id);
+        obj[word] = id;
+    }),i*1000);
+});
