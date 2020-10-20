@@ -22,7 +22,7 @@ function printFont(char){
     ctx2.fillStyle = "white";
     for(let y = 0; y < cv_width; y++){
         for(let x = 0; x < cv_width; x++){
-            if(d[4*(y * cv_width + x)+3] < 150) continue;
+            if(d[4*(y * cv_width + x)+3] < 180) continue;
             ctx2.fillRect(x, y, 1, 1);
         }
     }
@@ -99,4 +99,4 @@ function main(){
     post(kanjiList[i]);
     i++;
 }
-setInterval(main,10*1000);
+//setInterval(main,10*1000);
