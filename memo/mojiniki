@@ -86,4 +86,4 @@ function makeFont(char){
         download: "kanji.png"
     }).get(0).click();
 }
-makeFont("漢");
+makeFont("澤"); // 24875
