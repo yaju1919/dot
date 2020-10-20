@@ -1,0 +1,89 @@
+var $ = window.$;
+var sprite_width = 16;
+var cv_width = 100;
+function printFont(char){
+    var cv = $("<canvas>").attr({
+        width: cv_width,
+        height: cv_width
+    }).get(0);
+    var ctx = cv.getContext('2d');
+    ctx.fillStyle = "white";
+    ctx.font = "bold 14px 'ＭＳ 明朝'";
+    //ctx.font = size + "px '游明朝'";
+    ctx.fillText(char, cv_width/2, cv_width/2);
+    //---------------------------------------------------------
+    var imgData = ctx.getImageData(0,0,cv_width,cv_width);
+    var d = imgData.data;
+    var cv2 = $("<canvas>").attr({
+        width: cv_width,
+        height: cv_width
+    }).get(0);
+    var ctx2 = cv2.getContext('2d');
+    ctx2.fillStyle = "white";
+    for(let y = 0; y < cv_width; y++){
+        for(let x = 0; x < cv_width; x++){
+            if(d[4*(y * cv_width + x)+3] < 150) continue;
+            ctx2.fillRect(x, y, 1, 1);
+        }
+    }
+    //---------------------------------------------------------
+    var imgData2 = ctx.getImageData(0,0,cv_width,cv_width);
+    var d2 = imgData2.data;
+    let startX = cv_width,
+        startY = cv_width;
+    for(let y = 0; y < cv_width; y++){
+        for(let x = 0; x < cv_width; x++){
+            if(!d2[4*(y * cv_width + x)+3]) continue;
+            if(x < startX) startX = x;
+            if(y < startY) startY = y;
+        }
+    }
+    var cv3 = $("<canvas>").attr({
+        width: sprite_width,
+        height: sprite_width
+    }).get(0);
+    var ctx3 = cv3.getContext('2d');
+    ctx3.drawImage(cv2, startX, startY, sprite_width, sprite_width, 0, 1, sprite_width, sprite_width);
+    return cv3;
+}
+function makeFont(char){
+    var cv = printFont(char);
+    var ctx = cv.getContext('2d');
+    var imgData = ctx.getImageData(0,0,sprite_width,sprite_width);
+    var d = imgData.data;
+    var fillList = [];
+    for(let i = 0; i < d.length; i+=4){
+        if(d[i+3]) continue;
+        var x = (i / 4) % sprite_width,
+            y = Math.floor((i / 4) / sprite_width);
+        const ar = [
+            [x-1,y-1],
+            [x,y-1],
+            [x+1,y-1],
+            [x-1,y],
+            [x+1,y],
+            [x-1,y+1],
+            [x,y+1],
+            [x+1,y+1],
+        ].filter(v => {
+            var x = v[0],
+                y = v[1];
+            return 0 <= x && x < sprite_width && 0 <= y && y < sprite_width;
+        }).filter(v => {
+            var x = v[0],
+                y = v[1];
+            return d[ 4 * ( y * sprite_width + x ) + 3];
+        });
+        if(!ar.length) continue;
+        fillList.push([x,y]);
+    }
+    ctx.fillStyle = "rgba(32,36,48,1.0)";
+    fillList.forEach(xy=>{
+        ctx.fillRect(xy[0], xy[1], 1, 1);
+    });
+    $("<a>").attr({
+        href: cv.toDataURL(),
+        download: "kanji.png"
+    }).get(0).click();
+}
+makeFont("漢");
