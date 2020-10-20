@@ -97,5 +97,6 @@ let i = 0;
 function main(){
     if(!kanjiList[i]) return;
     post(kanjiList[i]);
+    i++;
 }
 setInterval(main,10*1000);
