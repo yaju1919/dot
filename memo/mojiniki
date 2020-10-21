@@ -96,7 +96,7 @@ function post(char){
     var imgBase = makeFont(char);
     if(!imgBase) return false;
     $.post("http://rpgen.us/dq/sprites/cons/upload.php",{
-        token: "ade718dd1dfa05e00bf863b4060b8357d3ab2631",
+        token: g_token,
         imgBase: imgBase,
         title: char,
         pass: "1q1q"
