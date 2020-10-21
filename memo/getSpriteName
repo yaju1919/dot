@@ -10,7 +10,7 @@ ar.forEach((id,i)=>{
         obj[word] = id;
     }),i*1000);
 });
-
+/*
 // 取りこぼし回収
 var done = Object.keys(obj).map(v=>obj[v]);
 ar.filter(v=>done.indexOf(v)===-1).forEach((id,i)=>{
@@ -22,3 +22,7 @@ ar.filter(v=>done.indexOf(v)===-1).forEach((id,i)=>{
         obj[word] = id;
     }),i*1000);
 });
+
+var s = Object.keys(obj).map(v=>obj[v]+' '+v).join('\n');
+console.log(s);
+*/
