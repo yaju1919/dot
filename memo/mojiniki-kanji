@@ -96,7 +96,7 @@ function post(char){
     var imgBase = makeFont(char);
     if(!imgBase) return false;
     $.post("http://rpgen.us/dq/sprites/cons/upload.php",{
-        token: "5c73201fcaa38487acbce4ad89ccfe837c154f31",
+        token: "ade718dd1dfa05e00bf863b4060b8357d3ab2631",
         imgBase: imgBase,
         title: char,
         pass: "1q1q"
@@ -110,3 +110,14 @@ function main(){
     i++;
 }
 //setInterval(main,10*1000);
+/*
+var obj={}
+$(".cSprite").find("a").each((i,e)=>{
+var n=Number($(e).attr("href").match(/[0-9]+/)[0]);
+if(n<=29725) return;
+var w =$(e).find("img").attr("alt");
+obj[String(n)]=w;
+});
+var s = Object.keys(obj).map(v=>v+' '+obj[v]).join('\n');
+console.log(s);
+*/
