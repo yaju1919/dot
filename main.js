@@ -90,7 +90,9 @@
         },
         change: function(v){
             if(!v) return;
-            $.get(`sample/${v}.txt`, dq);
+            $.get(`sample/${v}.txt`, function(r){
+                $("#dq").val(r).trigger("change");
+            });
         }
     });
     addTemplate("random", makeMapRandom);
