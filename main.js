@@ -10,7 +10,7 @@
             if(v) $("title").text(v);
         }
     });
-    $("<h1>").text("GUI無しでRPGENを編集するツール").appendTo(h);
+    $("<h1>").text("edit RPGEN tool 1").appendTo(h);
     $("<div>").text("MAPのURLバーにjを入力した後に、Bookmarkletを貼り付けてEnter押してください。").appendTo(h);
     var message_elm = $("<div>").appendTo(h);
     function message(str,color){
