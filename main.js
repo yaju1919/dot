@@ -34,7 +34,7 @@
     });
     yaju1919.addInputText(h_ui,{
         title: "MAPデータを取得するBookmarklet",
-        value: "avascript:(" + toStr(getFile) + ")();",
+        value: window.Bookmarklet.getMapData(),
         readonly: true
     });
     addBtn("clear",function(){
@@ -141,15 +141,14 @@
         hankaku: false,
     });
     addBtn("output",function(){
-        var file = LZString.compressToEncodedURIComponent(input_dq());
+        var result = window.Bookmarklet.writeMapData(input_dq());
         yaju1919.addInputText(tabB.empty(),{
-            value: file,
+            value: result[0],
             textarea: true,
             readonly: true
         });
-        var str = 'avascript:(function(){var map="' + file + '";(' + toStr(write) + ')();})();';
         yaju1919.addInputText(tabC.empty(),{
-            value: str,
+            value: result[1],
             textarea: true,
             readonly: true
         });
@@ -158,32 +157,7 @@
         backgroundColor:"red",
         fontSize: "2em",
     });
-    //------------------------------------------------------------------------------------
     h_ui.children().after("<br>");
-    //------------------------------------------------------------------------------------
-    function toStr(func){ // 関数を文字列化
-        return String(func).replace(/\/\/.*\n/g,'');
-    }
-    function getFile(){
-        var e = document.createElement("textarea");
-        e.textContent = LZString.compressToEncodedURIComponent(g_dqFile);
-        document.body.appendChild(e);
-        e.select();
-        document.execCommand('copy');
-        document.body.removeChild(e);
-        apprise('コピー完了');
-    }
-    function write(){
-        $.post(dqSock.getRPGBase() + 'cons/writeMapText.php',{
-            token: g_token,
-            index: parseInt(dq.mapNum),
-            mapText: (dq.bOpenScr ? '' : 'L1') + map,
-        }).done(function(r){
-            if ( r != 0 ) apprise("error");
-        }).fail(function(){
-            apprise("error");
-        });
-    }
     //------------------------------------------------------------------------------------
     function makeMapRandom(){ // ランダムMAPサンプル
         var width = 50,
