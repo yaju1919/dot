@@ -104,10 +104,10 @@
             "地面": "FLOOR",
             "物": "MAP",
             "人": "HUMAN",
-            "イベント": "EPOINT",
-            "マップ移動": "MPOINT",
             "宝箱": "TBOX",
+            "マップ移動": "MPOINT",
             "しらべる": "SPOINT",
+            "イベント": "EPOINT",
         },
         save: "select_range",
     });
