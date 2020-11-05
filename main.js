@@ -4,12 +4,6 @@
         "text-align": "center",
         padding: "1em"
     });
-    yaju1919.addInputText(h,{
-        title: "このページのタイトルを変更",
-        change: function(v){
-            if(v) $("title").text(v);
-        }
-    });
     $("<h1>").text("RPGEN edit tool 1").appendTo(h);
     $("<div>").text("MAPのURLバーにjを入力した後に、Bookmarkletを貼り付けてEnter押してください。").appendTo(h);
     var message_elm = $("<div>").appendTo(h);
