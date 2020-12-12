@@ -1,0 +1,32 @@
+var err = [], obj = {}, i = 0, max = 4252, notHuman = [];
+function get(mapId){
+    $.get(`http://rpgen.us/dq/maps/${mapId}/map.y3`)
+        .done(function(data1,textStatus,jqXHR) {
+        var mapText = data1;
+        if(data1[0] === 'L' && data1[1] === '1'){
+            mapText = LZString.decompressFromEncodedURIComponent(data1.replace(/^L1/,''));
+        }
+        var m = mapText.match(/(?<=#HUMAN\n)(.|\n)*?(?=#END)/g);
+        if(!m) return notHuman.push([mapId,mapText]);
+        //
+        var humans = [];
+        m.forEach(v=>{
+            var m = v.match(/^.*?(?=,)/);
+            if(!m) return console.log(v);
+            humans.push(m);
+        });
+        humans.forEach(v=>{
+            if(!obj[v]) obj[v] = 1;
+            else obj[v]++;
+        });
+    })
+        .fail(function(jqXHR, textStatus, errorThrown ) {
+        err.push(mapId);
+    });
+}
+setInterval(main,2000);
+function main(){
+    i++;
+    if(max < i) return console.warn("finish");
+    get(i);
+}
