@@ -7,9 +7,11 @@ var ab = (function() {
     var mono = yuka.map((v,y)=>v.slice().map((v2,x)=>y>0&&x>0?"29823":String(23917+x+y)));
     yuka.forEach((line,y)=>{
         line.forEach((v,x)=>{
-            var mapId = y * 100 + x;
-            if(deletes.indexOf(String(mapId)) !== -1) yuka[y][x] = "88";
-            else if(noHuman.indexOf(String(mapId)) !== -1) yuka[y][x] = "86";
+            var xx = x - 1,
+                yy = y - 1;
+            var mapId = yy * 100 + xx;
+            if(deletes.indexOf(String(mapId)) !== -1) yuka[yy][xx] = "88";
+            else if(noHuman.indexOf(String(mapId)) !== -1) yuka[yy][xx] = "86";
         });
     });
     return (function(){
