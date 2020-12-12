@@ -15,7 +15,12 @@ function get(mapId){
             if(!m) return console.log(v);
             humans.push(m);
         });
-        humans.forEach(v=>{
+        var ar = [];
+        humans.filter(v=>{
+            if(ar.indexOf(v)!==-1) return false;
+            ar.push(v);
+            return true;
+        }).forEach(v=>{
             if(!obj[v]) obj[v] = 1;
             else obj[v]++;
         });
