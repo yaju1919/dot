@@ -35,3 +35,19 @@ function main(){
     if(max < i) return console.warn("finish");
     get(i);
 }
+
+/*
+
+var aa = (()=>{
+    var defaultSprite = [],
+        sAnims = [],
+        sprite = [];
+    Object.keys(obj).forEach(v=>{
+        if(v[0] === 'A') sAnims.push(v);
+        else if(v[0] === '-') sprite.push(v);
+        else if(/^[0-9]+$/.test(v)) defaultSprite.push(v);
+    });
+    return ([defaultSprite, sAnims, sprite].map(ar=>ar.map(key=>[key,obj[key]]).sort((a, b) => b[1] - a[1])));
+})();
+
+*/
