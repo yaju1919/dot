@@ -13,7 +13,7 @@ function get(mapId){
         m.forEach(v=>{
             var m = v.match(/^.*?(?=,)/);
             if(!m) return console.log(v);
-            humans.push(m);
+            humans.push(m[0]);
         });
         var ar = [];
         humans.filter(v=>{
