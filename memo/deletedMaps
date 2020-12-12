@@ -8,13 +8,13 @@ var ab = (function() {
     yuka.forEach((line,y)=>{
         line.forEach((v,x)=>{
             var mapId = y * 100 + x;
-            if(deletes.indexOf(String(mapId))) yuka[y][x] = "88";
-            else yuka[y][x] = "86";
+            if(deletes.indexOf(String(mapId)) !== -1) yuka[y][x] = "88";
+            else if(noHuman.indexOf(String(mapId)) !== -1) yuka[y][x] = "86";
         });
     });
     return (function(){
-        var a = "#FLOOR" + yuka.map(line=>line.join(' ')).join('\n') + "#END";
-        var b = "#MAP" + mono.map(line=>line.join(' ')).join('\n') + "#END";
+        var a = "#FLOOR\n" + yuka.map(line=>line.join(' ')).join('\n') + "#END";
+        var b = "#MAP\n" + mono.map(line=>line.join(' ')).join('\n') + "#END";
         return [a,b];
     })();
 })();
