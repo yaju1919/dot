@@ -1,0 +1,20 @@
+var deletes = ``.split('\n').filter(v=>v),
+    noHuman = ``.split('\n').filter(v=>v);
+var ab = (function() {
+    'use strict';
+    var SIZE = 101;
+    var yuka = yaju1919.makeArray(SIZE).map((v,y)=>yaju1919.makeArray(SIZE).map((v,x)=>y>0&&x>0?"94":''));
+    var mono = yuka.map((v,y)=>v.slice().map((v2,x)=>y>0&&x>0?"29823":String(23917+x+y)));
+    yuka.forEach((line,y)=>{
+        line.forEach((v,x)=>{
+            var mapId = y * 100 + x;
+            if(deletes.indexOf(String(mapId))) yuka[y][x] = "88";
+            else yuka[y][x] = "86";
+        });
+    });
+    return (function(){
+        var a = "#FLOOR" + yuka.map(line=>line.join(' ')).join('\n') + "#END";
+        var b = "#MAP" + mono.map(line=>line.join(' ')).join('\n') + "#END";
+        return [a,b];
+    })();
+})();
